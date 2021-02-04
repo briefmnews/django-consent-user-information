@@ -12,12 +12,13 @@ logger = logging.getLogger(__name__)
 def create_user_consent_information(request, user=None, mail=None):
     """To create an user consent information"""
     if not hasattr(request, "user_agent"):
-        raise ValueError("Check if the middleware is present")
+        raise ValueError("UserAgentMiddleware from django_user_agents is mandatory")
 
     data = {
         "device": request.user_agent.device.family,
         "browser": request.user_agent.browser.family,
         "os": request.user_agent.os.family,
+        "user_agent": request.user_agent,
     }
 
     if request.user_agent.browser.version_string:

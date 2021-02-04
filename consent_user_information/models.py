@@ -10,4 +10,5 @@ class ConsentUserInformation(models.Model):
     device = models.CharField(max_length=100, blank=True)
     browser = models.CharField(max_length=255, blank=True)
     os = models.CharField(max_length=255, blank=True)
+    user_agent = models.CharField(max_length=255, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
