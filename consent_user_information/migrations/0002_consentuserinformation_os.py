@@ -8,13 +8,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('consent_user_information', '0001_initial'),
+        ("consent_user_information", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='consentuserinformation',
-            name='os',
+            model_name="consentuserinformation",
+            name="os",
             field=models.CharField(blank=True, max_length=255),
         ),
     ]

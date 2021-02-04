@@ -2,7 +2,7 @@ import pytest
 from faker import Faker
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def password():
     """To generate a password"""
     fake = Faker()

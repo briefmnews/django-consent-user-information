@@ -1,0 +1,8 @@
+Django>=2
+django-ipware>=2
+django-user-agents<1
+
+Faker==6.0.0
+pytest==6.2.2
+
+black==20.8b1
