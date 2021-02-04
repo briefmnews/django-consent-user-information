@@ -1,23 +1,38 @@
 import pytest
-from faker import Faker
+from django.test import RequestFactory
+from django.contrib.auth.models import AnonymousUser
+from django.contrib.sessions.middleware import SessionMiddleware
+from django_user_agents.middleware import UserAgentMiddleware
 
-
-@pytest.fixture(scope="module")
-def password():
-    """To generate a password"""
-    fake = Faker()
-    return fake.password()
+from .factories import ConsentUserInformationFactory, UserFactory
 
 
 @pytest.fixture
-def user(django_user_model, password):
-    """To create an user"""
-    fake = Faker()
-    username = fake.user_name()
-    mail = fake.email()
-    user = django_user_model.objects.create(username=username, email=mail)
+def user():
+    return UserFactory()
 
-    user.set_password(password)
-    user.save()
 
-    return user
+@pytest.fixture
+def user_information():
+    return ConsentUserInformationFactory()
+
+
+@pytest.fixture
+def request_builder():
+    """Create a request object"""
+    return RequestBuilder()
+
+
+class RequestBuilder(object):
+    @staticmethod
+    def get(path="/", user=None):
+        rf = RequestFactory()
+        request = rf.get(path)
+        request.user = user or AnonymousUser()
+
+        SessionMiddleware().process_request(request)
+        UserAgentMiddleware().process_request(request)
+
+        request.session.save()
+
+        return request
