@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 
+from .managers import ConsentUserInformationManager
+
 
 class ConsentUserInformation(models.Model):
     user = models.OneToOneField(
@@ -12,3 +14,5 @@ class ConsentUserInformation(models.Model):
     os = models.CharField(max_length=255, blank=True)
     user_agent = models.CharField(max_length=255, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    objects = ConsentUserInformationManager()
