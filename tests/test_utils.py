@@ -40,13 +40,13 @@ class TestCreateUserConsentInformation:
         # THEN
         assert ConsentUserInformation.objects.count() == 1
 
-    def test_with_mail(self, request_builder, user):
+    def test_with_email(self, request_builder, user):
         # GIVEN
         request = request_builder.get()
         assert ConsentUserInformation.objects.count() == 0
 
         # WHEN
-        create_user_consent_information(request, mail=user.email)
+        create_user_consent_information(request, email=user.email)
 
         # THEN
         assert ConsentUserInformation.objects.count() == 1
