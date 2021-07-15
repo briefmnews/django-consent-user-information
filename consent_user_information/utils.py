@@ -9,7 +9,7 @@ from .models import ConsentUserInformation
 logger = logging.getLogger(__name__)
 
 
-def create_user_consent_information(request, user=None, mail=None):
+def create_user_consent_information(request, user=None, email=None):
     """To create an user consent information"""
     if not hasattr(request, "user_agent"):
         raise ValueError("UserAgentMiddleware from django_user_agents is mandatory")
@@ -35,11 +35,11 @@ def create_user_consent_information(request, user=None, mail=None):
         data["ip"] = client_ip
 
     if user:
-        data["user"] = user
-    elif mail:
-        data["user"] = get_user_model().objects.get(email=mail)
+        user = user
+    elif email:
+        user = get_user_model().objects.get(email=email)
     else:
         if request.user.is_authenticated:
-            data["user"] = request.user
+            user = request.user
 
-    ConsentUserInformation.objects.create(**data)
+    ConsentUserInformation.objects.update_or_create(user=user, defaults=data)
