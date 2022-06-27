@@ -1,8 +1,10 @@
 from setuptools import setup, find_packages
 
+from consent_user_information import __version__
+
 setup(
     name="django-consent-user-information",
-    version="2.1.0",
+    version=__version__,
     description="To store information about the user.",
     long_description="""
 To store information about the user like the browser and device.
