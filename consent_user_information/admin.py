@@ -17,7 +17,7 @@ class ConsentUserInformationAdmin(admin.ModelAdmin):
         "os",
         "created_at",
     )
-    search_fields = ["user__email", "user__first_name", "user__last_name"]
+    search_fields = ["user__email", "user__first_name", "user__last_name", "ip"]
 
 
 admin.site.register(ConsentUserInformation, ConsentUserInformationAdmin)
