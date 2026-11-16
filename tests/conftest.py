@@ -30,7 +30,7 @@ class RequestBuilder(object):
         request = rf.get(path)
         request.user = user or AnonymousUser()
 
-        SessionMiddleware().process_request(request)
+        SessionMiddleware(lambda request: None).process_request(request)
         UserAgentMiddleware().process_request(request)
 
         request.session.save()
